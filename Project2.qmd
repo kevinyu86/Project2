@@ -53,7 +53,6 @@ top_scorers_list <- as_tibble(top_scorers_data$response$player)
 top_scorers_stats <- bind_rows(lapply(top_scorers_data$response$statistics, as_tibble, .name_repair="unique"))
 
 top_scorers_df <- bind_cols(top_scorers_list, top_scorers_stats)
-
 ```
 
 Next, I will get the team data of Mancherster United in 2022-2023 season:
@@ -67,4 +66,33 @@ team_list <- team_data$response$fixtures
 
 # Convert the list to a tibble
 team_df <- as_tibble(team_list)
+```
+
+
+## Summarize the Data
+
+# Contingency tables
+
+First contingency table will show the nationality of top scorers:
+```{r}
+national <- top_scorers_df |>
+  group_by(nationality) |>
+  summarize(count = n())
+```
+
+Second contingency table will be two-way table to show the club and position of the top scorers:
+```{r}
+club_position <- top_scorers_df |>
+  group_by(team$name, games$position) |>
+  summarize(count = n())
+```
+
+
+```{r}
+```
+
+```{r}
+```
+
+```{r}
 ```
