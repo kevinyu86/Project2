@@ -25,9 +25,10 @@ library(ggplot2)
 
 
 ```{r}
-get_football_data <- function(endpoint, api_key, params = list()) {
+# function to query the API
+get_football_data <- function(endpoint, params = list()) {
   url <- paste0("https://v3.football.api-sports.io/", endpoint)
-  
+  api_key <- '7bb4734f269c8a2fce113f507c69ed8e'
   response <- GET(url, add_headers(`x-apisports-key` = api_key), query = params)
   
   if (http_status(response)$category != "Success") {
@@ -43,12 +44,11 @@ get_football_data <- function(endpoint, api_key, params = list()) {
 By querying API, I will get the top scorers data in English Premier League in 2022-2023 season:
 
 ```{r}
-api_key <- '7bb4734f269c8a2fce113f507c69ed8e'
 endpoint <- "players/topscorers"
 params <- list(league = 39, season = 2022)
 
 #get data list and convert to tibble
-top_scorers_data <- get_football_data(endpoint, api_key, params)
+top_scorers_data <- get_football_data(endpoint, params)
 top_scorers_list <- as_tibble(top_scorers_data$response$player)
 top_scorers_stats <- bind_rows(lapply(top_scorers_data$response$statistics, as_tibble, .name_repair="unique"))
 
@@ -57,7 +57,6 @@ top_scorers_df <- bind_cols(top_scorers_list, top_scorers_stats)
 
 Next, I will get the team data of Mancherster United in 2022-2023 season:
 ```{r}
-api_key <- '7bb4734f269c8a2fce113f507c69ed8e'
 endpoint <- "teams/statistics"
 params <- list(league = 39, season = 2022, team = 33)
 
@@ -89,6 +88,7 @@ club_position <- top_scorers_df |>
 
 
 ```{r}
+
 ```
 
 ```{r}
