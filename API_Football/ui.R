@@ -26,18 +26,28 @@ body <- dashboardBody(
     tabItems(
       tabItem(tabName = "about",
               fluidRow(
-                box(title = "This App", status = "primary", solidHeader = TRUE,
-                    "AAAA"
-                )
-              ),
+                box(img(src = 'P2.png', align = "left")),
+                box(img(src = 'P1.png', align = "right"))
+                ),
               
               fluidRow(
-                box(title = "Data Source", status = "primary", solidHeader = TRUE,
-                    "BBBB"
+                box(title = "Purpose", status = "primary", solidHeader = TRUE,
+                    h3("Welcome!"),
+                    h4("The App can get the information about Football
+                    Leagues & Cups.")
                 ),
-                box(title = "Each Tap", status = "primary", solidHeader = TRUE,
-                    "CCCC"
-                )
+                box(title = "Data Source", status = "primary", solidHeader = TRUE,
+                    h4("The data is queried from API-FOOTBALL, https://dashboard.api-football.com"),
+                    h4("Two endpoints will be queried in this App: 
+                       players/topscorers will get the 20 best players for a league and season;
+                       teams/statistics will returns the statistics of a team 
+                       in relation to a given competition and season.")
+                ),
+                box(title = "Each Tab", status = "primary", solidHeader = TRUE,
+                    h3("There are three tabs in the left sidebar:"),
+                    h4("The App can get the information about Football
+                    Leagues & Cups.")
+                ),
               )
       ),
       
@@ -69,24 +79,32 @@ body <- dashboardBody(
       tabItem(tabName = "data_exploration", 
               fluidRow(
                 conditionalPanel(condition = "input.endpoint == 'players/topscorers'",
-                  box(title = "Shot and goal summary of Top Scorers", 
-                    selectInput("varSelection", "Variables", choices = c("Total shots"="shots$total", "Shots On"="shots$on", "Total goals"="goals$total")),
-                    plotOutput("topScorersPlot", height = 350)
-                )
-               )
-              ),
+                                 box(title = "Shot and goal summary of Top Scorers", 
+                                     selectInput("varSelection", "Variables", choices = c("Total shots"="shots$total", "Shots On"="shots$on", "Total goals"="goals$total")),
+                                     plotOutput("topScorersPlot", height = 350)
+                                     ),
+                                 
+                                 box(title = "Mean value of Top Scores' stats",
+                                     dataTableOutput("topScorers_mean_table")
+                                     )
+                                 )
+                ),
               
               fluidRow(
-                box(title = "EE", status = "primary", solidHeader = TRUE,
-                    "BBBB"
-                ),
-                box(title = "RR", status = "primary", solidHeader = TRUE,
-                    "CCCC"
+                conditionalPanel(condition = "input.endpoint == 'players/topscorers'",
+                                 box(title = "Positon and team information of Top Scores",
+                                     dataTableOutput("topScores_position_team_table")
+                                     ),
+                                 box(title = "Correlation between shots and goals", 
+                                     selectInput("X", "X", choices = c("Total shots"="shots$total", "Shots On"="shots$on", "Total goals"="goals$total")),
+                                     selectInput("Y", "Y", choices = c("Total shots"="shots$total", "Shots On"="shots$on", "Total goals"="goals$total")),
+                                     plotOutput("shotgoalPlot", height = 350)
+                                     )
+                                 )
                 )
               )
       )
     )
-)
 
 ui <- dashboardPage(header, siderbar, body)
   

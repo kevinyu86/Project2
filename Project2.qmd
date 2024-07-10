@@ -50,7 +50,17 @@ params <- list(league = 39, season = 2022)
 #get data list and convert to tibble
 top_scorers_data <- get_football_data(endpoint, params)
 top_scorers_list <- as_tibble(top_scorers_data$response$player)
+name_age <- top_scorers_list |>
+  select(id, name, age)
+
 top_scorers_stats <- bind_rows(lapply(top_scorers_data$response$statistics, as_tibble, .name_repair="unique"))
+
+stats <- top_scorers_stats |>
+  select(team, games)
+
+games <- as_tibble(top_scorers_stats$games)
+goals <- as_tibble(top_scorers_stats$goals)
+shots <- as_tibble(top_scorers_stats$)
 
 top_scorers_df <- bind_cols(top_scorers_list, top_scorers_stats)
 ```
@@ -88,7 +98,9 @@ club_position <- top_scorers_df |>
 
 
 ```{r}
-
+df <- top_scorers_list_1 |>
+  bind_rows() |>
+  flatten()
 ```
 
 ```{r}
