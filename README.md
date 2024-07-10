@@ -13,5 +13,5 @@ install.packages(c("shiny", "httr", "jsonlite", "dplyr", "ggplot2", "shinydashbo
 To run a Shiny app, please use the following code:
 
 ```R
-runGitHub("Project2", "kevinyu86", subdir = "API_Footbal")
+runGitHub("Project2", "kevinyu86")
 ```
