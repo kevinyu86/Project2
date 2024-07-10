@@ -1,6 +1,3 @@
-install.packages(c("shiny", "httr", "jsonlite", "dplyr", "ggplot2"))
-# Project2
-
 # Project2 Shiny App
 
 This App queries the API-FOOTBALL data, which can return information about Football Leagues & Cups.
