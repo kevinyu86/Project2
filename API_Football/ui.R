@@ -45,8 +45,9 @@ body <- dashboardBody(
                 ),
                 box(title = "Each Tab", status = "primary", solidHeader = TRUE,
                     h3("There are three tabs in the left sidebar:"),
-                    h4("The App can get the information about Football
-                    Leagues & Cups.")
+                    h4("About tab: provide the basic introduction of purpose and data source of the App"),
+                    h4("Data_Download tab: allow user to specify the endpoint, subset, display and save the data set"),
+                    h4("About tab: allow user to choose variables that showing the summary of data set")
                 ),
               )
       ),

@@ -50,8 +50,17 @@ server <- function(input, output, session) {
       #fetch team stats data
       team_data <- get_football_data(endpoint, list(league = league, season = season, team = team))
       team_fixture <- as_tibble(team_data$response$fixtures)
+      team_goals <- as_tibble(team_data$response$goals)
       output$team_fixture_table <- renderDataTable(team_fixture)
      
+      # Plot game results
+      output$winlossPlot <- renderPlot({
+        ggplot(team_fixture, aes_string(x = "name", y = input$varSelection)) +
+          geom_bar(stat = "identity", fill = "skyblue") +
+          coord_flip() +
+          theme_minimal() +
+          labs(x = "Player Name")
+      })
       
     } 
     
